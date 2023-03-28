@@ -1,0 +1,61 @@
+class Sportsmen
+{
+protected:
+	string surname;
+	int competetive_count;
+	int place_sum;
+public:
+	Sportsmen(string surname, int compet_count, int place_sum) : surname(surname), competetive_count(compet_count), place_sum(place_sum) {}
+	virtual ~Sportsmen() {}
+
+	virtual void print() const
+	{
+		cout << "Surname: " << surname << endl;
+		cout << "competetive count: " << competetive_count << endl;
+		cout << "place sum: " << place_sum << endl;
+		cout << "first method Q:" << Q() << endl;
+		cout << endl << endl;
+	}
+
+	virtual double Q() const
+	{
+		return (competetive_count / place_sum);
+	}
+
+};
+
+class Potomok : public Sportsmen
+{
+protected:
+	bool first_place;
+public:
+	Potomok(string surname, int compet_count, int place_sum, bool first_place) : Sportsmen(surname, compet_count, place_sum), first_place(first_place) {}
+
+	void print() const override
+	{
+		Sportsmen::print();
+	}
+
+	double Q() const override
+	{
+		if (first_place == true)
+		{
+			return Sportsmen::Q() * 1.5;
+		}
+		else
+		{
+			return Sportsmen::Q();
+		}
+	}
+};
+
+int main()
+{
+	Sportsmen* sport1 = new Sportsmen("Jordan", 10, 5);
+	sport1->print();
+	sport1->Q();
+	Potomok* P = new Potomok("Jordan", 10, 5, 1);
+	P->Q();
+	P->print();
+	return 0;
+}
